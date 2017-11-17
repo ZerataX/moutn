@@ -1,0 +1,47 @@
+{
+  "author": "ZerataX <mail@zera.tax> (https://zera.tax)",
+  "name": "moutn",
+  "private": true,
+  "description": "Fansite of Mr.Mouton",
+  "version": "0.0.1",
+  "homepage": "https://mr.mouton.site",
+  "keywords": [
+    "mr",
+    "mouton",
+    "website"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zeratax/moutn.git"
+  },
+  "contributors": [
+    "Jona Abdinghoff <mail@zera.tax>"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+    "node-sass": "^4.6.1",
+    "pug-cli": "^1.0.0-alpha6",
+    "sass-lint": "^1.12.1",
+    "serve": "^6.4.1"
+  },
+  "bugs": {
+    "url": "https://github.com/zeratax/moutn/issues"
+  },
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "setup": "npm run clean && mkdir -p ./dist",
+    "build": "npm run build:sass && npm run build:pug",
+    "build:pug": "pug src/pages/index.pug -o dist",
+    "build:sass": "node-sass src/styles/main.sass -o dist/styles",
+    "lint": "npm run lint:sass && npm run lint:pug",
+    "lint:sass": "sass-lint -v -q",
+    "lint:pug": "pug-lint src/pages/*.pug -c .pug-lintrc.json",
+    "deploy": "npm run setup && npm run build",
+    "serve": "serve ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "sasslintConfig": ".sass-lint.yml",
+  "pugLintConfig": ".pug-lint.json",
+  "license": "MIT"
+}
