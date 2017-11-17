@@ -1,0 +1,73 @@
+//---IMPORTS
+@import color_palette
+
+//---VARIABLES
+$main-color:  #f58ea8 !default
+$brands: (twitter, 'monochrometwo'), (reddit, 'monochromeone'), (twitch, 'monochromethree')
+$shadow: rgba(0, 0, 0, .5)
+$overlay: 'https://camo.githubusercontent.com/edd97d81c92095470ff214097cfc98a97d7c5ee7/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313837373038332f323335343937332f34396237666435302d613564302d313165332d386365322d3236636135306239393234322e706e67'
+
+//---COLORS
+
+// Muck around with config here:
+
+// Analogous
++generate-color-palette($base-color: $main-color)
+
+// Complementary
++generate-color-palette($base-color: $main-color, $type: complementary, $class-name: 'complementary')
+
+// Monochromatic based on Complementary
++generate-color-palette($base-color: get-palette-color(1, 'complementary'), $type: monochromatic, $class-name: 'monochromeone', $darken: true, $base-factor: 2.5%)
++generate-color-palette($base-color: get-palette-color(2, 'complementary'), $type: monochromatic, $class-name: 'monochrometwo', $darken: true, $base-factor: 2.5%)
++generate-color-palette($base-color: get-palette-color(3, 'complementary'), $type: monochromatic, $class-name: 'monochromethree', $darken: true, $base-factor: 2.5%)
++generate-color-palette($base-color: get-palette-color(3, 'complementary'), $type: monochromatic, $class-name: 'monochromefour', $darken: true, $base-factor: 2.5%)
+
+//---MIXINS
+=background-gradient($color-palette)
+  background-image: url($overlay), linear-gradient(45deg, get-palette-color(2, $color-palette) 20%, get-palette-color(1, $color-palette) 60%, get-palette-color(3, $color-palette))
+
+
+//---MAIN
+body
+  background-size: cover
+  font-family: Arial, Helvetica, sans-serif
+  height: 100%
+  margin: 0
+  +background-gradient('monochromeone') // sass-lint:disable-line mixins-before-declarations
+
+.center
+  align-items: center
+  display: flex
+  flex-direction: column
+  justify-content: center
+  margin-top: 1em
+
+.card
+  animation: 1s ease-out 0s 1 slideIn
+  box-shadow: 0 4px 8px 0 $shadow
+  min-height: 8em
+  transition: .3s
+  width: 30em
+
+.content
+  padding: 2px 16px
+
+  h4
+    font-size: 1rem
+    font-weight: 500
+    letter-spacing: .15em
+    line-height: 1.2
+
+@each $brand, $brand_color in $brands
+  .#{$brand}
+    +background-gradient($brand_color)
+
+@keyframes slideIn
+  0%
+    opacity: 0
+    transform: translateY(-100%)
+
+  100%
+    opacity: 1
+    transform: translateY(0)
